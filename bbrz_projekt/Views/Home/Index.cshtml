@@ -1,0 +1,103 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+ 
+}
+
+
+<section id="slider" class="slider-parallax dark full-screen" style="height: auto; transform: translate(0px, 0px); background: url(../../Images/Game-of-Thrones.jpg) 50% 50%;">
+
+    <div class="container clearfix">
+
+        <div class="vertical-middle clearfix" style="position: relative; top: 0px; width: auto; padding-top: 60px; padding-bottom: 60px; margin-top: 0px; opacity: 1;">
+
+            <div class="heading-block center nobottomborder">
+                <h2 data-animate="fadeInUp" class="fadeInUp animated" style="font-size:42px; font-weight: 700 !important; text-shadow: 0px 0px 5px black;">Wilkommen auf IGDB</h2>
+            </div>
+
+            <form action="#" method="post" role="form" class="landing-wide-form clearfix col-md-8 col-md-offset-2" style="padding: 15px 0px;">
+                <div class="col-md-9 nobottommargin">
+                    <div class="nobottommargin">
+                        <input type="text" class="form-control input-lg not-dark" value="" placeholder="Name des Games...">
+                    </div>
+                </div>
+                <div class="col-md-3 col_last nobottommargin">
+                    <button class="btn btn-lg btn-danger btn-block nomargin" value="submit" type="submit" style="">SUCHEN</button>
+                </div>
+            </form>
+
+        </div>
+
+        <a href="#" data-scrollto="#jumpTo" class="one-page-arrow"><i class="icon-angle-down infinite animated fadeInDown"></i></a>
+
+    </div>
+
+</section>
+
+
+
+<section id="content">
+
+    <div id="section-features" class="content-wrap nobottommargin nobottompadding">
+
+        <div id="jumpTo" class="heading-block nobottomborder center" style="padding-bottom: 110px;">
+            <h1><span>TOP</span> Neuerscheinungen</h1>
+        </div>
+
+        <div class="clearfix"></div>
+
+        <div id="oc-images" class="owl-carousel owl-carousel-full news-carousel header-stick nobottommargin">
+
+                @{
+                    for (int i = 1; i < 6; i++)
+                    {
+                        int test = i * 20;
+
+                        <div class="oc-item">
+                            <a href="#"><img src="~/Images/got.jpg" alt="Image 3"></a>
+                            <div class="overlay">
+                                <div class="text-overlay">
+                                    <span class="label label-danger">World</span>
+                                    <div class="text-overlay-title">
+                                        <h2>Political, vulnerable citizens eradicate philanthropy.</h2>
+                                    </div>
+                                    <div class="text-overlay-meta">
+                                        <span>8th Nov 2014</span>
+                                    </div>
+                                    <a href="#" class="button button-reveal button-border button-light button-small button-rounded uppercase tright noleftmargin topmargin-sm"><span>Mehr Erfahren</span><i class="icon-angle-right"></i></a>
+                                </div>
+                                <div class="rounded-skill" data-color="#e74c3c" data-trackcolor="rgba(0,0,0,0.1)" data-size="80" data-percent="@test" data-width="7" data-animate="3000">4.0</div>
+                            </div>
+                        </div>
+                        }
+                }
+
+        </div>
+
+        <script type="text/javascript">
+
+					jQuery(document).ready(function($) {
+
+						var ocImages = $("#oc-images");
+
+						ocImages.owlCarousel({
+							margin: 3,
+							stagePadding: 50,
+							loop: true,
+							nav: true,
+							navText: ['<i class="icon-angle-left"></i>','<i class="icon-angle-right"></i>'],
+							dots: false,
+							responsive:{
+								0:{ items:1 },
+								1050:{ items:2 }
+							}
+						});
+
+					});
+
+        </script>
+
+        <div class="clear"></div>
+        </div>
+    </section>
+

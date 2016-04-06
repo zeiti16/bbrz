@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="InternetGamesDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="tblGame">
+    <Key>
+      <PropertyRef Name="Game_ID" />
+    </Key>
+    <Property Name="Game_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+    <Property Name="Description" Type="nvarchar" MaxLength="255" />
+    <Property Name="Visible" Type="bit" />
+    <Property Name="ReleaseDate" Type="datetime" />
+    <Property Name="CreatenDate" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="FK_User" Type="nvarchar" MaxLength="255" />
+    <Property Name="FK_Genre" Type="int" />
+    <Property Name="FK_Publisher" Type="int" />
+  </EntityType>
+  <EntityType Name="tblGenre">
+    <Key>
+      <PropertyRef Name="Genre_ID" />
+    </Key>
+    <Property Name="Genre_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="tblImage">
+    <Key>
+      <PropertyRef Name="Image_ID" />
+    </Key>
+    <Property Name="Image_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ImageData" Type="varbinary" MaxLength="1" />
+    <Property Name="FK_Game" Type="int" />
+  </EntityType>
+  <EntityType Name="tblPublisher">
+    <Key>
+      <PropertyRef Name="Publisher_ID" />
+    </Key>
+    <Property Name="Publisher_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="255" />
+    <Property Name="FoundingDate" Type="date" />
+    <Property Name="Url" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="tblRating">
+    <Key>
+      <PropertyRef Name="FK_Game" />
+      <PropertyRef Name="FK_User" />
+    </Key>
+    <Property Name="RatingDate" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
+    <Property Name="Rating" Type="int" />
+    <Property Name="FK_Game" Type="int" Nullable="false" />
+    <Property Name="FK_User" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblUser">
+    <Key>
+      <PropertyRef Name="Username" />
+    </Key>
+    <Property Name="Username" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Firstname" Type="nvarchar" MaxLength="255" />
+    <Property Name="Lastname" Type="nvarchar" MaxLength="255" />
+    <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Administrator" Type="bit" />
+  </EntityType>
+  <!--Während der Generierung sind Fehler aufgetreten:
+Warnung 6002: Für Tabelle/Sicht 'InternetGamesDatabase.dbo.vUser' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
+  <EntityType Name="vUser">
+    <Key>
+      <PropertyRef Name="Username" />
+      <PropertyRef Name="Password" />
+    </Key>
+    <Property Name="Username" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Firstname" Type="nvarchar" MaxLength="255" />
+    <Property Name="Lastname" Type="nvarchar" MaxLength="255" />
+    <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="Administrator" Type="bit" />
+  </EntityType>
+  <Association Name="fk_game">
+    <End Role="tblGame" Type="Self.tblGame" Multiplicity="1" />
+    <End Role="tblRating" Type="Self.tblRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGame">
+        <PropertyRef Name="Game_ID" />
+      </Principal>
+      <Dependent Role="tblRating">
+        <PropertyRef Name="FK_Game" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_game2">
+    <End Role="tblGame" Type="Self.tblGame" Multiplicity="0..1" />
+    <End Role="tblImage" Type="Self.tblImage" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGame">
+        <PropertyRef Name="Game_ID" />
+      </Principal>
+      <Dependent Role="tblImage">
+        <PropertyRef Name="FK_Game" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_genre">
+    <End Role="tblGenre" Type="Self.tblGenre" Multiplicity="0..1" />
+    <End Role="tblGame" Type="Self.tblGame" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblGenre">
+        <PropertyRef Name="Genre_ID" />
+      </Principal>
+      <Dependent Role="tblGame">
+        <PropertyRef Name="FK_Genre" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_publisher">
+    <End Role="tblPublisher" Type="Self.tblPublisher" Multiplicity="0..1" />
+    <End Role="tblGame" Type="Self.tblGame" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblPublisher">
+        <PropertyRef Name="Publisher_ID" />
+      </Principal>
+      <Dependent Role="tblGame">
+        <PropertyRef Name="FK_Publisher" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="1" />
+    <End Role="tblRating" Type="Self.tblRating" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="tblRating">
+        <PropertyRef Name="FK_User" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="fk_user2">
+    <End Role="tblUser" Type="Self.tblUser" Multiplicity="0..1" />
+    <End Role="tblGame" Type="Self.tblGame" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tblUser">
+        <PropertyRef Name="Username" />
+      </Principal>
+      <Dependent Role="tblGame">
+        <PropertyRef Name="FK_User" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="InternetGamesDatabaseModelStoreContainer">
+    <EntitySet Name="tblGame" EntityType="Self.tblGame" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblGenre" EntityType="Self.tblGenre" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblImage" EntityType="Self.tblImage" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblPublisher" EntityType="Self.tblPublisher" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblRating" EntityType="Self.tblRating" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="vUser" EntityType="Self.vUser" store:Type="Views" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [vUser].[Username] AS [Username], 
+    [vUser].[Firstname] AS [Firstname], 
+    [vUser].[Lastname] AS [Lastname], 
+    [vUser].[Password] AS [Password], 
+    [vUser].[Administrator] AS [Administrator]
+    FROM [dbo].[vUser] AS [vUser]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="fk_game" Association="Self.fk_game">
+      <End Role="tblGame" EntitySet="tblGame" />
+      <End Role="tblRating" EntitySet="tblRating" />
+    </AssociationSet>
+    <AssociationSet Name="fk_game2" Association="Self.fk_game2">
+      <End Role="tblGame" EntitySet="tblGame" />
+      <End Role="tblImage" EntitySet="tblImage" />
+    </AssociationSet>
+    <AssociationSet Name="fk_genre" Association="Self.fk_genre">
+      <End Role="tblGenre" EntitySet="tblGenre" />
+      <End Role="tblGame" EntitySet="tblGame" />
+    </AssociationSet>
+    <AssociationSet Name="fk_publisher" Association="Self.fk_publisher">
+      <End Role="tblPublisher" EntitySet="tblPublisher" />
+      <End Role="tblGame" EntitySet="tblGame" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user" Association="Self.fk_user">
+      <End Role="tblUser" EntitySet="tblUser" />
+      <End Role="tblRating" EntitySet="tblRating" />
+    </AssociationSet>
+    <AssociationSet Name="fk_user2" Association="Self.fk_user2">
+      <End Role="tblUser" EntitySet="tblUser" />
+      <End Role="tblGame" EntitySet="tblGame" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

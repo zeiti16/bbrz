@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="de-de">
+<head>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="Michael Zeitlinger" content="Projekt" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jsHead")
+
+    <script>
+        $(document).ready(function () {
+            $(window).scroll(function (event) {
+                if ($(window).scrollTop() < 100) {
+                    $("#imageLogo").css("padding", "35px 0px");
+                } else {
+                    $("#imageLogo").css("padding", "20px 0px");
+                }
+            });
+        })
+    </script>
+
+</head>
+
+<body class="stretched dark">
+
+    <div id="wrapper" class="clearfix">
+
+        <header id="header" class="full-header transparent-header dark">
+
+            <div id="header-wrap">
+
+                <div class="container clearfix">
+
+                    <div id="primary-menu-trigger" class="fright"><i class="icon-reorder fright"></i></div>
+
+
+                    <div id="logo" style="border-right: none;">
+
+                        <a href="Home/Index"><img src="~/Images/logo-igdb.png" id="imageLogo" style="padding: 35px 0px;"></a>
+                    </div>
+
+                    <nav id="primary-menu" class="dark">
+
+                        <ul class="nomargin nopadding" style="border-right: none;">
+                            <li>
+                                @Html.ActionLink("Home", "Index")
+                            </li>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="current sub-menu">
+                                    <a href="#" id="UserEmail" class="sf-with-ul"><div style="color: #1ABC9C; cursor: pointer;">@User.Identity.Name <i class="icon-caret-down"> </i></div></a>
+                                    <ul style="display: none;">
+                                        <li>@Html.ActionLink("Mein Bereich","Index","MySpace")</li>
+                                        <li>@Html.ActionLink("Ausloggen", "Logout", "User")</li>
+                                    </ul>
+                                </li>
+                                <li class="mega-menu">
+
+                                </li>
+                            }
+                            else
+                            {
+                                <li>
+                                    <a href="#myModal1" data-lightbox="inline">Einloggen</a>
+                                </li>
+                                <li>
+                                    <a href="#myModal2" data-lightbox="inline">Registrierung</a>
+                                </li>
+                            }
+                        </ul>
+
+
+                    </nav>
+
+
+                </div>
+
+            </div>
+
+        </header>
+
+        @RenderBody()
+
+
+        <footer id="footer" class="dark">
+
+            <div id="copyrights">
+
+                <div class="container clearfix">
+
+                    <div class="col_half">
+                        <img src="~/Images/logo-igdb.png" alt="" class="footer-logo">
+                        Copyrights © 2016 All Rights Reserved by BBRZ
+                    </div>
+
+
+                    <div class="col_half col_last tright">
+                        <div class="copyrights-menu copyright-links fright clearfix">
+                            @Html.ActionLink("Home", "Index")/<a href="#">About</a>/<a href="#">Features</a>/<a href="#">Portfolio</a>/<a href="#">FAQs</a>/<a href="#">Contact</a>
+                        </div>
+                        <br />
+                        <br />
+                        <div class="fright clearfix">
+                            <a href="#" class="social-icon si-small si-borderless nobottommargin si-facebook">
+                                <i class="icon-facebook"></i>
+                                <i class="icon-facebook"></i>
+                            </a>
+
+                            <a href="#" class="social-icon si-small si-borderless nobottommargin si-twitter">
+                                <i class="icon-twitter"></i>
+                                <i class="icon-twitter"></i>
+                            </a>
+
+                            <a href="#" class="social-icon si-small si-borderless nobottommargin si-gplus">
+                                <i class="icon-gplus"></i>
+                                <i class="icon-gplus"></i>
+                            </a>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </footer>
+
+    </div>
+
+    <div class="container clearfix">
+
+
+        <div class="modal1 mfp-hide" id="myModal1">
+            <div class="block dark divcenter" style="background-color: #333; max-width: 500px;" data-height-lg="420">
+                <div style="padding: 50px;">
+                    <div class="heading-block nobottomborder bottommargin-sm" style="max-width:500px;">
+                        <h3>Einloggen</h3>
+                    </div>
+
+                    <form id="loginForm" action="~/User/Test/" onsubmit="return false;">
+                            <label>Email</label>
+                            <input type="text" id="userEmailLog" data-validation="email" name="email" class="form-control input-md not-dark" style="margin-bottom: 15px;" />
+                   
+                                <label>Passwort</label>
+                                <input type="password" id="userPasswordLog" name="password" class="form-control input-md not-dark" data-validation="length" data-validation-length="5-40" />
+                            <div style="margin-top: 15px;"><label><input type="checkbox" checked id="SessionOrCookie" style="position: relative; top: 2px;" /> Angemeldet bleiben.</label></div>
+
+                            <input type="submit" id="submitLog" value="Einloggen" class="button button-rounded button-border button-light noleftmargin" style="margin-top: 20px;" />
+                            <div id="logOut"></div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="modal1 mfp-hide" id="myModal2">
+            <div class="block dark divcenter" style="background-color: #333; max-width: 500px;" data-height-lg="530">
+                <div style="padding: 50px;">
+                    <div class="heading-block nobottomborder bottommargin-sm" style="max-width:500px;">
+                        <h3>Registrierung</h3>
+                    </div>
+                    <form id="registrierungForm" action="~/User/Registrierung/" onsubmit="return false;">
+                        <label>Vorname*</label>
+                        <input type="text" id="VornameReg" name="Vorname" class="form-control input-md not-dark" style="margin-bottom: 15px;" data-validation="required" />
+                        <label>Nachname*</label>
+                        <input type="text" id="NachnameReg" name="Nachname" class="form-control input-md not-dark" style="margin-bottom: 15px;" data-validation="required" />
+                        <label>Email*</label>
+                        <input type="text" id="EmailReg" name="Email" class="form-control input-md not-dark" style="margin-bottom: 15px;" data-validation="email" />
+                        <label>Passwort* <span style="font-weight:200;">(Mindestens 5 Zeichen)</span></label>
+                        <input type="password" id="PwReg" class="form-control input-md not-dark" data-validation="length" data-validation-length="min5" />
+                        <button class="button button-rounded button-border button-light noleftmargin" type="submit" style="margin-top:30px;">Anmelden</button>
+                    </form> 
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+    @Scripts.Render("~/bundles/functions")
+    @RenderSection("scripts", required: false)
+
+
+</body>
+</html>
