@@ -12,18 +12,6 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/jsHead")
 
-    <script>
-        $(document).ready(function () {
-            $(window).scroll(function (event) {
-                if ($(window).scrollTop() < 100) {
-                    $("#imageLogo").css("padding", "35px 0px");
-                } else {
-                    $("#imageLogo").css("padding", "20px 0px");
-                }
-            });
-        })
-    </script>
-
 </head>
 
 <body class="stretched dark">
@@ -150,7 +138,8 @@
                                 <input type="password" id="userPasswordLog" name="password" class="form-control input-md not-dark" data-validation="length" data-validation-length="5-40" />
                             <div style="margin-top: 15px;"><label><input type="checkbox" checked id="SessionOrCookie" style="position: relative; top: 2px;" /> Angemeldet bleiben.</label></div>
 
-                            <input type="submit" id="submitLog" value="Einloggen" class="button button-rounded button-border button-light noleftmargin" style="margin-top: 20px;" />
+                            <input type="submit" id="submitLog" value="Einloggen" class="button button-rounded button-border button-light noleftmargin fleft" style="margin-top: 20px;" />
+                            <div class="fleft" id="spin1"></div>
                             <div id="logOut"></div>
                     </form>
 

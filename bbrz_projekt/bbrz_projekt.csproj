@@ -173,6 +173,7 @@
     <Content Include="scripts\base.js" />
     <Content Include="scripts\jquery.form-validator.js" />
     <Content Include="scripts\jquery.form-validator.min.js" />
+    <Content Include="scripts\jquery.spin.js" />
     <Content Include="scripts\location.js" />
     <Content Include="scripts\security.js" />
     <Content Include="Views\Shared\Error.cshtml" />

@@ -1,4 +1,14 @@
 ﻿$(document).ready(function () {
+    $(window).scroll(function (event) {
+        if ($(window).scrollTop() < 100) {
+            $("#imageLogo").css("padding", "35px 0px");
+        } else {
+            $("#imageLogo").css("padding", "20px 0px");
+        }
+    });
+})
+
+$(document).ready(function () {
     $.validate({
         form: '#loginForm',
         showErrorDialogs: false,
@@ -26,12 +36,13 @@ function UserEinloggen() {
         password: $('#userPasswordLog').val(),
         angemeldetBleiben: $check
     }, function (daten) {
-        if (daten == "true") {
-            location.reload();
-        } else {
-            $("#loginForm label").css("color", "red");
-            $("#loginForm input[type='text'],#loginForm input[type='password']").css("border", "1px solid red");
-        }
+            if (daten == "true") {
+                location.reload();
+            } else {
+                $("#loginForm label").css("color", "red");
+                $("#loginForm input[type='text'],#loginForm input[type='password']").css("border", "1px solid red");
+            }
+ 
     });
 }
 
