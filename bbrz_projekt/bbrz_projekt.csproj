@@ -190,7 +190,7 @@
     <Content Include="IGDB_DB.edmx.diagram">
       <DependentUpon>IGDB_DB.edmx</DependentUpon>
     </Content>
-    <Content Include="Views\MySpace\Index.cshtml" />
+    <Content Include="Views\MySpace\MeinProfil.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -276,7 +276,7 @@
     <Compile Include="tblUser.cs">
       <DependentUpon>IGDB_DB.tt</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\EmailVerify.cs" />
+    <Compile Include="ViewModels\Verify.cs" />
     <Compile Include="ViewModels\Hash.cs" />
     <Compile Include="ViewModels\LoginData.cs" />
     <Compile Include="vUser.cs">

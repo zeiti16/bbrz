@@ -43,7 +43,7 @@
                                 <li class="current sub-menu">
                                     <a href="#" id="UserEmail" class="sf-with-ul"><div style="color: #1ABC9C; cursor: pointer;">@User.Identity.Name <i class="icon-caret-down"> </i></div></a>
                                     <ul style="display: none;">
-                                        <li>@Html.ActionLink("Mein Bereich","Index","MySpace")</li>
+                                        <li>@Html.ActionLink("Profil ändern","MeinProfil","MySpace")</li>
                                         <li>@Html.ActionLink("Ausloggen", "Logout", "User")</li>
                                     </ul>
                                 </li>
@@ -75,7 +75,7 @@
         @RenderBody()
 
 
-        <footer id="footer" class="dark">
+        <footer id="footer" class="dark nomargin">
 
             <div id="copyrights">
 

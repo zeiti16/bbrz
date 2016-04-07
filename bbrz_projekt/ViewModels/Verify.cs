@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace bbrz_projekt.ViewModels
 {
-    public static class EmailVerify
+    public static class Verify
     {
   
             static Regex ValidEmailRegex = CreateValidEmailRegex();
@@ -27,5 +27,11 @@ namespace bbrz_projekt.ViewModels
 
                 return isValid;
             }
+
+            public static string HtmlSpecialCharsFunction(string wert)
+            {
+            return HttpContext.Current.Server.HtmlEncode(wert);
+            }
         }
+
     }

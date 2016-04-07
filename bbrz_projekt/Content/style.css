@@ -8,6 +8,18 @@
 	Version: 3.1.1
 
 -----------------------------------------------------------------------------------*/
+.labelProfilChange{
+        font-size: 20px; 
+        line-height: 36px;
+        float: right;
+    }
+
+@media (max-width: 768px) {
+    .labelProfilChange{
+        float: left !important;
+    }
+}
+
 
 .help-block{
     display: none !important;
@@ -11610,6 +11622,7 @@ button.toast-close-button {
 	position: relative;
 	background-color: #EEE;
 	border-top: 5px solid rgba(0,0,0,0.2);
+    margin-top: 0px !important;
 }
 
 .device-lg.sticky-footer #top-bar,

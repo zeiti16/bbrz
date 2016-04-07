@@ -1,0 +1,71 @@
+﻿@model bbrz_projekt.ViewModels.LoginData
+@{
+    ViewBag.Title = "Mein Bereich - Profil bearbeiten";
+    
+}
+
+<section id="page-title" class="page-title-pattern">
+
+    <div class="container clearfix">
+        <h1 >Profil bearbeiten</h1>
+        <span>Mein Bereich</span>
+        <ol class="breadcrumb hidden-xs hidden-sm" >
+            <a href="~/User/Logout" class="button button button-border nomargin button-rounded" style="position: relative; top: -12px;">Ausloggen</a>
+        </ol>
+    </div>
+
+</section>
+<section class="dark" style="padding: 80px;">
+    <div class="row">
+        <div class="col-lg-offset-2 col-lg-8 col-md-offset-3 col-md-4 col-sm-offset-1 col-sm-10 col-xs-12">
+            <form id="changeData" method="post" action="~/MySpace/ChangeUserData/">
+                <div class="col_one_third nobottommargin">
+                    <span class="labelProfilChange">Email-Adresse:</span>
+                </div>
+                <div class="col_two_third col_last nobottommargin">
+                    <input type="text" id="userEmailLog" data-validation="email" name="email" value=@Model.Email class="form-control input-md" disabled style="margin-bottom: 25px;" />
+                </div>
+                <div class="col_one_third nobottommargin">
+                    <span class="labelProfilChange">Vorname:</span>
+                </div>
+                <div class="col_two_third col_last nobottommargin">
+                    <input name="Vorname" type="text" id="changeVor" value=@Model.Vorname class="form-control input-md" style="margin-bottom: 25px;"  data-validation="required" />
+                </div>
+                <div class="col_one_third nobottommargin">
+                    <span class="labelProfilChange">Nachname:</span>
+                </div>
+                <div class="col_two_third col_last nobottommargin">
+                    <input name="Nachname" type="text" id="changeVor" value=@Model.Nachname class="form-control input-md" style="margin-bottom: 25px;"  data-validation="required" />
+                </div>
+                <div class="clo_full">
+                    <input type="submit" class="button button-rounded button-large nobottommargin fright" value="ändern" />
+                </div>
+                </form>
+</div>
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $parmResult = GetURLParameter("result");
+        if ($parmResult != "") {
+            if ($parmResult == "True") {
+                alert("true");
+            } else {
+                alert("false");
+            }
+        }
+    })
+
+    function GetURLParameter(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
+            }
+        }
+    }
+</script>
