@@ -1,7 +1,113 @@
 ﻿
 @{
     ViewBag.Title = "Passwort ändern";
+    <style>
+        .help-block {
+            display: block !important;
+        }
+
+        .rowline {
+            margin-bottom: 20px;
+        }
+    </style>
 }
 
-<h2>MeinPasswort</h2>
+<section id="page-title" class="page-title-pattern">
+
+    <div class="container clearfix">
+        <h1>Profil bearbeiten</h1>
+        <span>Mein Bereich</span>
+        <ol class="breadcrumb hidden-xs hidden-sm">
+            <a href="~/User/Logout" class="button button button-border nomargin button-rounded" style="position: relative; top: -12px;">Ausloggen</a>
+        </ol>
+    </div>
+
+</section>
+<section class="dark" style="padding: 80px;">
+    <div class="row">
+        <div class="col-lg-offset-2 col-lg-8 col-md-offset-3 col-md-4 col-sm-offset-1 col-sm-10 col-xs-12">
+            <form id="changeData" method="post" action="~/MySpace/ChangeUserData/">
+                <div class="clearfix rowline">
+                    <div class="col_one_third nobottommargin">
+                        <span class="labelProfilChange">Email-Adresse:</span>
+                    </div>
+                    <div class="col_two_third col_last nobottommargin">
+                        <input type="text" id="userEmailLog" data-validation="email" name="password" class="form-control input-md" />
+                    </div>
+                </div>
+                <div class="clearfix rowline">
+                    <div class="col_one_third nobottommargin">
+                        <span class="labelProfilChange">Vorname:</span>
+                    </div>
+                    <div class="col_two_third col_last nobottommargin">
+                        <input name="Vorname" type="text" id="changeVor" value="" class="form-control input-md" data-validation="length alphanumeric" data-validation-length="3-100" data-validation-error-msg="Muss aus mindesten 3 Buchstaben bestehen" />
+                    </div>
+                </div>
+                <div class="clearfix rowline">
+                    <div class="col_one_third nobottommargin">
+                        <span class="labelProfilChange">Nachname:</span>
+                    </div>
+                    <div class="col_two_third col_last nobottommargin">
+                        <input name="Nachname" type="text" id="changeVor" value=@Model.Nachname class="form-control input-md" data-validation="length alphanumeric" data-validation-length="3-100" data-validation-error-msg="Muss aus mindesten 3 Buchstaben bestehen" />
+                    </div>
+                </div>
+                <div class="col_one_third">
+                </div>
+                <div class="col_two_third col_last">
+                    <div id="resultChange"></div>
+                </div>
+                <div class="coll_full">
+                    <input type="submit" class="button button-rounded button-large nobottommargin fright" value="ändern" />
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.validate({
+            form: '#changeData',
+            showErrorDialogs: true,
+            borderColorOnError: 'red',
+            onSuccess: function ($form) {
+                return true;
+            },
+            onError: function ($form) {
+                return false;
+            },
+            onElementValidate: function (valid, $el, $form, errorMess) {
+                if (!valid) {
+                    $el.prev().css("color", "red");
+                } else {
+                    $el.prev().css("color", "#BBBBBB");
+                }
+            }
+        });
+    })
+
+    $(document).ready(function () {
+        $parmResult = GetURLParameter("result");
+        if ($parmResult != "") {
+            if ($parmResult == "True") {
+                $("#resultChange").html('<div class="style-msg successmsg"><div class="sb-msg"><i class="icon-thumbs-up"></i><strong>USerdaten wurden erfolgreich geändert!</strong></div></div>');
+            } else if ($parmResult == "False") {
+                $("#resultChange").html('<div class="style-msg errormsg"><div class="sb-msg"><i class="icon-remove"></i><strong>Upps. </strong> Userdaten konnten nicht geändert werden.</div></div>');
+            }
+        }
+    })
+
+    function GetURLParameter(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
+            }
+        }
+    }
+</script>
+
 

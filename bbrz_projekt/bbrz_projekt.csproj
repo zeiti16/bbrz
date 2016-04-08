@@ -291,7 +291,6 @@
     <Folder Include="Models\" />
     <Folder Include="scripts\plugins\" />
     <Folder Include="scripts\vmap\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
