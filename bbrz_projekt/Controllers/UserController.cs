@@ -18,7 +18,7 @@ namespace bbrz_projekt.Controllers
         //}
 
         [HttpPost]
-        public ActionResult Login(LoginData data)
+        public ActionResult Login(UserModel data)
         {
             //FormsAuthentication.SetAuthCookie(data.Email, true);
             //return RedirectToAction("Index", "Home");
@@ -37,7 +37,7 @@ namespace bbrz_projekt.Controllers
         }
 
         [HttpPost]
-        public ActionResult Registrierung(LoginData data)
+        public ActionResult Registrierung(UserModel data)
         {
 
             if (data.AddNewUser())

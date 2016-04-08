@@ -28,15 +28,14 @@
 
 
                     <div id="logo" style="border-right: none;">
-
-                        <a href="Home/Index"><img src="~/Images/logo-igdb.png" id="imageLogo" style="padding: 35px 0px;"></a>
+                        <a href="~/Home/Index"><img src="~/Images/logo-igdb.png" id="imageLogo" style="padding: 35px 0px;"></a>
                     </div>
 
                     <nav id="primary-menu" class="dark">
 
                         <ul class="nomargin nopadding" style="border-right: none;">
                             <li>
-                                @Html.ActionLink("Home", "Index")
+                                @Html.ActionLink("Home","Index","Home")
                             </li>
                             @if (User.Identity.IsAuthenticated)
                             {
@@ -44,6 +43,7 @@
                                     <a href="#" id="UserEmail" class="sf-with-ul"><div style="color: #1ABC9C; cursor: pointer;">@User.Identity.Name <i class="icon-caret-down"> </i></div></a>
                                     <ul style="display: none;">
                                         <li>@Html.ActionLink("Profil ändern","MeinProfil","MySpace")</li>
+                                        <li>@Html.ActionLink("Passwort ändern", "MeinPasswort", "MySpace")</li>
                                         <li>@Html.ActionLink("Ausloggen", "Logout", "User")</li>
                                     </ul>
                                 </li>

@@ -18,16 +18,21 @@ namespace bbrz_projekt.Controllers
             var AktiveUser = connection.tblUser.Where(x => x.Username == User.Identity.Name).SingleOrDefault();
             if(AktiveUser != null)
             {
-                return View(new LoginData() { Vorname = AktiveUser.Firstname, Nachname = AktiveUser.Lastname, Email = AktiveUser.Username });
+                return View(new UserModel() { Vorname = AktiveUser.Firstname, Nachname = AktiveUser.Lastname, Email = AktiveUser.Username });
             } else
             {
                 return RedirectToAction("Index", "Home");
             }
-            
+        }
+
+        [Authorize]
+        public ActionResult MeinPasswort()
+        {
+            return View();
         }
 
         [HttpPost]
-        public ActionResult ChangeUserData(LoginData data)
+        public ActionResult ChangeUserData(UserModel data)
         {
             if (data.ChangeUser(User.Identity.Name))
             {

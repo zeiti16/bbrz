@@ -6,7 +6,7 @@ using System.Web.Security;
 
 namespace bbrz_projekt.ViewModels
 {
-    public class LoginData
+    public class UserModel
     {
         public string Vorname { get; set; }
         public string Nachname { get; set; }
@@ -37,7 +37,7 @@ namespace bbrz_projekt.ViewModels
         }
         public bool ChangeUser(string user)
         {
-            if(this.Vorname.Length >= 1 && this.Nachname.Length >= 1)
+            if(this.Vorname != null && this.Nachname != null)
             {
                 tblUser AktiverUser = connection.tblUser.Where(x => x.Username == user).SingleOrDefault();
                 if(AktiverUser != null) {
