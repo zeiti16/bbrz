@@ -9,7 +9,7 @@ namespace bbrz_projekt.Controllers
 {
     public class MySpaceController : Controller
     {
-        private IGDBEntities connection = new IGDBEntities();
+        private IGDBE connection = new IGDBE();
 
         // GET: MySpace
         [Authorize]
@@ -31,6 +31,14 @@ namespace bbrz_projekt.Controllers
             return View();
         }
 
+        [Authorize]
+        public ActionResult SpielAnlegen()
+        {
+            ViewBag.Genre = connection.tblGenre.ToList();
+            ViewBag.Publisher = connection.tblPublisher.ToList();
+            return View();
+        }
+
         [HttpPost]
         public ActionResult ChangeUserData(UserModel data)
         {
@@ -40,6 +48,31 @@ namespace bbrz_projekt.Controllers
             }
             else
                 return RedirectToAction("MeinProfil", "MySpace", new { result = false });
+        }
+
+        [HttpPost]
+        public ActionResult AddNewGame(GameModel data)
+        {
+            if (data.AddNewGame(User.Identity.Name))
+            {
+                return RedirectToAction("SpielAnlegen", "MySpace", new { result = true });
+            }
+            else
+            {
+                return RedirectToAction("SpielAnlegen", "MySpace", new { result = false });
+            }
+            
+        }
+
+        [HttpPost]
+        public ActionResult ChangeUserPw(UserModel data)
+        {
+            if (data.ChangePasswort(User.Identity.Name))
+            {
+                return RedirectToAction("MeinPasswort", "MySpace", new { result = true });
+            }
+            else
+                return RedirectToAction("MeinPasswort", "MySpace", new { result = false });
         }
     }
 }

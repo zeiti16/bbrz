@@ -13,26 +13,32 @@ namespace bbrz_projekt.ViewModels
         public string Email { get; set; }
         public string Password { get; set; }
         public string angemeldetBleiben { get; set; }
+        public string Pass_confirmation { get; set; }
+        public string Pass { get; set; }
+        public bool Gesperrt { get; set; }
 
-        private IGDBEntities connection = new IGDBEntities();
+        private IGDBE connection = new IGDBE();
 
         public bool CheckUserEmailPasswort()
         {
             string pw = Hash.CreateSHAHash(this.Password);
-            tblUser AktiveUser = connection.tblUser.Where(x => x.Username == this.Email && x.Password == pw).SingleOrDefault();
+            tblUser AktiveUser = connection.tblUser.Where(x => x.Username == this.Email && x.Password == pw && x.Gesperrt != true).SingleOrDefault();
             return AktiveUser != null;
         }
         public bool AddNewUser()
         {
             if (this.Vorname != null && this.Nachname != null && this.Password.Length >= 5 && Verify.EmailIsValid(this.Email))
             {
-                tblUser newUser = new tblUser() { Firstname = Verify.HtmlSpecialCharsFunction(this.Vorname), Lastname = Verify.HtmlSpecialCharsFunction(this.Nachname), Password = Hash.CreateSHAHash(this.Password), Username = Verify.HtmlSpecialCharsFunction(this.Email), Administrator = false };
-                connection.tblUser.Add(newUser);
-                connection.SaveChanges();
-                return true;
+                var obj = connection.tblUser.FirstOrDefault(x => x.Username == this.Email);
+                if (obj == null)
+                {
+                    tblUser newUser = new tblUser() { Firstname = Verify.HtmlSpecialCharsFunction(this.Vorname), Lastname = Verify.HtmlSpecialCharsFunction(this.Nachname), Password = Hash.CreateSHAHash(this.Password), Username = Verify.HtmlSpecialCharsFunction(this.Email), Administrator = false, Gesperrt = false};
+                    connection.tblUser.Add(newUser);
+                    connection.SaveChanges();
+                    return true;
+                }
             }
-            else
-                return false;
+            return false;
             
         }
         public bool ChangeUser(string user)
@@ -49,6 +55,21 @@ namespace bbrz_projekt.ViewModels
             }
             return false;
             
+        }
+        public bool ChangePasswort(string user)
+        {
+            if (this.Password.Length >= 5 && this.Pass.Length >= 5 && this.Pass_confirmation.Length >= 5 && this.Pass == this.Pass_confirmation)
+            {
+                tblUser AktiverUser = connection.tblUser.Where(x => x.Username == user).SingleOrDefault();
+                if (AktiverUser != null)
+                {
+                    AktiverUser.Firstname = Hash.CreateSHAHash(this.Pass);
+                    connection.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
+
         }
     }
 

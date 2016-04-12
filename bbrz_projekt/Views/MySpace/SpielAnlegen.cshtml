@@ -1,0 +1,161 @@
+﻿
+@{
+    ViewBag.Title = "SpielAnlegen";
+    <script type="text/javascript" src="~/scripts/date.js"></script>
+    <script type="text/javascript" src="~/scripts/file.js"></script>
+    <style>
+        .help-block {
+            display: block !important;
+        }
+
+        .rowline {
+            margin-bottom: 20px;
+        }
+    </style>
+}
+
+<section id="page-title" class="page-title-pattern">
+
+    <div class="container clearfix">
+        <h1>Spiel erstellen</h1>
+        <span>Mein Bereich</span>
+        <ol class="breadcrumb hidden-xs hidden-sm">
+            <a href="~/User/Logout" class="button button button-border nomargin button-rounded" style="position: relative; top: -12px;">Ausloggen</a>
+        </ol>
+    </div>
+
+</section>
+
+<section class="dark" style="padding: 80px;">
+    <div class="row">
+        <div class="col-lg-offset-2 col-lg-8 col-md-offset-3 col-md-4 col-sm-offset-1 col-sm-10 col-xs-12">
+            <form id="addGame" method="post" action="~/MySpace/AddNewGame/" enctype="multipart/form-data">
+
+                <div class="clearfix rowline">
+                    <div class="col_one_third nobottommargin">
+                        <span class="labelProfilChange">Spiel Name:</span>
+                    </div>
+                    <div class="col_two_third col_last nobottommargin">
+                        <input type="text" data-validation="length" data-validation-length="min3" name="title" class="form-control input-md" data-validation-error-msg="Der Spieletitel muss aus mindestens 3 Zeichen bestehen" />
+                    </div>
+                </div>
+
+                <div class="clearfix rowline">
+                    <div class="col_one_third nobottommargin">
+                        <span class="labelProfilChange">Beschreibung:</span>
+                    </div>
+                    <div class="col_two_third col_last nobottommargin">
+                        <textarea name="description" data-validation="required" class="form-control input-md" data-validation-error-msg="Die Spielebeschreibung muss aus mindestens 5 Zeichen bestehen"></textarea>
+                    </div>
+                </div>
+
+                <div class="clearfix rowline">
+                    <div class="col_one_third nobottommargin">
+                        <span class="labelProfilChange">Genre:</span>
+                    </div>
+                    <div class="col_two_third col_last nobottommargin">
+                        <select name="genre" class="form-control input-md" data-validation="number" data-validation-allowing="range[1;200]" data-validation-error-msg="Bitte wähle ein Genre aus!">
+                            <option value="0">Wähle einen Genre aus</option>
+                            @foreach (var elem in ViewBag.Genre)
+                            {
+                                <option value=@elem.Genre_ID>@elem.Title</option>
+                                
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="clearfix rowline">
+                    <div class="col_one_third nobottommargin">
+                        <span class="labelProfilChange">Publisher:</span>
+                    </div>
+                    <div class="col_two_third col_last nobottommargin">
+                        <select name="publisher" class="form-control input-md" data-validation="number" data-validation-allowing="range[1;200]" data-validation-error-msg="Bitte wähle einen Publisher aus!">
+                            <option value="0">Wähle ein Publisher aus</option>
+                            @foreach (var elem in ViewBag.Publisher)
+                            {
+                                <option value=@elem.Publisher_ID>@elem.Name</option>
+
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="clearfix rowline">
+                    <div class="col_one_third nobottommargin">
+                        <span class="labelProfilChange">Erscheinungsdatum:</span>
+                    </div>
+                    <div class="col_two_third col_last nobottommargin">
+                        <input type="date" name="ReleaseDate" value="" class="form-control" data-validation="required" da data-validation-error-msg="Ist keine Gültiges Datumsformat">
+                    </div>
+                </div>
+
+                <div class="clearfix rowline">
+                    <div class="col_one_third nobottommargin">
+                        <span class="labelProfilChange">Bild:</span>
+                    </div>
+                    <div class="col_two_third col_last nobottommargin">
+                        <input id="input-1" type="file" name="bild" class="file form-control" data-validation="mime size" data-validation-allowing="jpg, png, gif" data-validation-max-size="3M" data-validation-error-msg="Ist keine Gültiges Bildformat">
+                    </div>
+                </div>
+
+                <div class="col_one_third">
+                </div>
+                <div class="col_two_third col_last">
+                    <div id="resultChange"></div>
+                </div>
+                <div class="coll_full">
+                    <input type="submit" class="button button-rounded button-large nobottommargin fright" value="ändern" />
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $.validate({
+            form: '#addGame',
+            showErrorDialogs: true,
+            borderColorOnError: 'red',
+            onSuccess: function ($form) {
+                return true;
+            },
+            onError: function ($form) {
+                return false;
+            },
+            onElementValidate: function (valid, $el, $form, errorMess) {
+                if (!valid) {
+                    $el.prev().css("color", "red");
+                } else {
+                    $el.prev().css("color", "#BBBBBB");
+                }
+            }
+        });
+    })
+
+    $(document).ready(function () {
+        $parmResult = GetURLParameter("result");
+        if ($parmResult != "") {
+            if ($parmResult == "True") {
+                $("#resultChange").html('<div class="style-msg successmsg"><div class="sb-msg"><i class="icon-thumbs-up"></i><strong>Spiel wurden erfolgreich angelegt!</strong></div></div>');
+            } else if ($parmResult == "False") {
+                $("#resultChange").html('<div class="style-msg errormsg"><div class="sb-msg"><i class="icon-remove"></i><strong>Upps. </strong> Spiel konnte nicht angelegt werden.</div></div>');
+            }
+            $(document).scrollTop(4000);
+        }
+    })
+
+    function GetURLParameter(sParam) {
+        var sPageURL = window.location.search.substring(1);
+        var sURLVariables = sPageURL.split('&');
+        for (var i = 0; i < sURLVariables.length; i++) {
+            var sParameterName = sURLVariables[i].split('=');
+            if (sParameterName[0] == sParam) {
+                return sParameterName[1];
+            }
+        }
+    }
+</script>
+

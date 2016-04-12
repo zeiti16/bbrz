@@ -1,6 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="InternetGamesDatabaseModelStoreContainer" CdmEntityContainer="IGDBEntities">
+  <EntityContainerMapping StorageEntityContainer="InternetGamesDatabaseModelStoreContainer" CdmEntityContainer="IGDBE">
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="InternetGamesDatabaseModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="tblGame">
       <EntityTypeMapping TypeName="InternetGamesDatabaseModel.tblGame">
         <MappingFragment StoreEntitySet="tblGame">
@@ -9,7 +20,6 @@
           <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="Visible" ColumnName="Visible" />
           <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
-          <ScalarProperty Name="CreatenDate" ColumnName="CreatenDate" />
           <ScalarProperty Name="FK_User" ColumnName="FK_User" />
           <ScalarProperty Name="FK_Genre" ColumnName="FK_Genre" />
           <ScalarProperty Name="FK_Publisher" ColumnName="FK_Publisher" />
@@ -61,19 +71,46 @@
           <ScalarProperty Name="Lastname" ColumnName="Lastname" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Administrator" ColumnName="Administrator" />
+          <ScalarProperty Name="Gesperrt" ColumnName="Gesperrt" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="vUser">
-      <EntityTypeMapping TypeName="InternetGamesDatabaseModel.vUser">
-        <MappingFragment StoreEntitySet="vUser">
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="Firstname" ColumnName="Firstname" />
-          <ScalarProperty Name="Lastname" ColumnName="Lastname" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
-          <ScalarProperty Name="Administrator" ColumnName="Administrator" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="AusgabeNewGame" FunctionName="InternetGamesDatabaseModel.Store.AusgabeNewGame">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="InternetGamesDatabaseModel.AusgabeNewGame_Result">
+          <ScalarProperty Name="Game_ID" ColumnName="Game_ID" />
+          <ScalarProperty Name="CreatenDate" ColumnName="CreatenDate" />
+          <ScalarProperty Name="GameTitel" ColumnName="GameTitel" />
+          <ScalarProperty Name="GenreTitel" ColumnName="GenreTitel" />
+          <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+          <ScalarProperty Name="UserRating" ColumnName="UserRating" />
+          <ScalarProperty Name="CountRating" ColumnName="CountRating" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="InternetGamesDatabaseModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="InternetGamesDatabaseModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="InternetGamesDatabaseModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="InternetGamesDatabaseModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="InternetGamesDatabaseModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="InternetGamesDatabaseModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="InternetGamesDatabaseModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="InternetGamesDatabaseModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="InternetGamesDatabaseModel.Store.sp_upgraddiagrams" />
   </EntityContainerMapping>
 </Mapping>

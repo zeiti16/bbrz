@@ -26,7 +26,6 @@ namespace bbrz_projekt
         public string Description { get; set; }
         public Nullable<bool> Visible { get; set; }
         public Nullable<System.DateTime> ReleaseDate { get; set; }
-        public byte[] CreatenDate { get; set; }
         public string FK_User { get; set; }
         public Nullable<int> FK_Genre { get; set; }
         public Nullable<int> FK_Publisher { get; set; }

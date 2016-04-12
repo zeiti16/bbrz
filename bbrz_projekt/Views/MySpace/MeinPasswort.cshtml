@@ -1,6 +1,6 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Passwort ändern";
+    <script src="~/scripts/security.js" type="text/javascript"></script>
     <style>
         .help-block {
             display: block !important;
@@ -15,7 +15,7 @@
 <section id="page-title" class="page-title-pattern">
 
     <div class="container clearfix">
-        <h1>Profil bearbeiten</h1>
+        <h1>Passwort ändern</h1>
         <span>Mein Bereich</span>
         <ol class="breadcrumb hidden-xs hidden-sm">
             <a href="~/User/Logout" class="button button button-border nomargin button-rounded" style="position: relative; top: -12px;">Ausloggen</a>
@@ -26,29 +26,28 @@
 <section class="dark" style="padding: 80px;">
     <div class="row">
         <div class="col-lg-offset-2 col-lg-8 col-md-offset-3 col-md-4 col-sm-offset-1 col-sm-10 col-xs-12">
-            <form id="changeData" method="post" action="~/MySpace/ChangeUserData/">
+            <form id="changePw" method="post" action="~/MySpace/ChangeUserPw/">
                 <div class="clearfix rowline">
                     <div class="col_one_third nobottommargin">
-                        <span class="labelProfilChange">Email-Adresse:</span>
+                        <span class="labelProfilChange">Altes Passwort:</span>
                     </div>
                     <div class="col_two_third col_last nobottommargin">
-                        <input type="text" id="userEmailLog" data-validation="email" name="password" class="form-control input-md" />
+                        <input type="password" data-validation="length" data-validation-length="min5" name="password" class="form-control input-md" data-validation-error-msg="Das Passwort muss aus mindestens 5 Zeichen bestehen" />
                     </div>
                 </div>
                 <div class="clearfix rowline">
                     <div class="col_one_third nobottommargin">
-                        <span class="labelProfilChange">Vorname:</span>
+                        <span class="labelProfilChange">Neues Passwort:</span>
                     </div>
                     <div class="col_two_third col_last nobottommargin">
-                        <input name="Vorname" type="text" id="changeVor" value="" class="form-control input-md" data-validation="length alphanumeric" data-validation-length="3-100" data-validation-error-msg="Muss aus mindesten 3 Buchstaben bestehen" />
-                    </div>
+                        <input type="password" name="pass_confirmation" data-validation="length" data-validation-length="min5" class="form-control input-md" data-validation-error-msg="Das Passwort muss aus mindestens 5 Zeichen bestehen"></div>
                 </div>
                 <div class="clearfix rowline">
                     <div class="col_one_third nobottommargin">
-                        <span class="labelProfilChange">Nachname:</span>
+                        <span class="labelProfilChange">Passwort wiederholen:</span>
                     </div>
                     <div class="col_two_third col_last nobottommargin">
-                        <input name="Nachname" type="text" id="changeVor" value=@Model.Nachname class="form-control input-md" data-validation="length alphanumeric" data-validation-length="3-100" data-validation-error-msg="Muss aus mindesten 3 Buchstaben bestehen" />
+                        <input type="password" name="pass" data-validation="confirmation" class="form-control input-md" data-validation-error-msg="Das Passwort stimmt nicht überein!">
                     </div>
                 </div>
                 <div class="col_one_third">
@@ -68,7 +67,8 @@
 
     $(document).ready(function () {
         $.validate({
-            form: '#changeData',
+            modules: 'security',
+            form: '#changePw',
             showErrorDialogs: true,
             borderColorOnError: 'red',
             onSuccess: function ($form) {
@@ -91,9 +91,9 @@
         $parmResult = GetURLParameter("result");
         if ($parmResult != "") {
             if ($parmResult == "True") {
-                $("#resultChange").html('<div class="style-msg successmsg"><div class="sb-msg"><i class="icon-thumbs-up"></i><strong>USerdaten wurden erfolgreich geändert!</strong></div></div>');
+                $("#resultChange").html('<div class="style-msg successmsg"><div class="sb-msg"><i class="icon-thumbs-up"></i><strong>Passwort wurden erfolgreich geändert!</strong></div></div>');
             } else if ($parmResult == "False") {
-                $("#resultChange").html('<div class="style-msg errormsg"><div class="sb-msg"><i class="icon-remove"></i><strong>Upps. </strong> Userdaten konnten nicht geändert werden.</div></div>');
+                $("#resultChange").html('<div class="style-msg errormsg"><div class="sb-msg"><i class="icon-remove"></i><strong>Upps. </strong> Passwort konnten nicht geändert werden.</div></div>');
             }
         }
     })

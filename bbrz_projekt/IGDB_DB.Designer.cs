@@ -1,4 +1,4 @@
-﻿// Die T4-Codegenerierung ist für Modell 'C:\Users\zeiti16\Source\Repos\My First Project2\bbrz_projekt\bbrz_projekt\IGDB_DB.edmx' aktiviert. 
+﻿// Die T4-Codegenerierung ist für Modell 'C:\Projekt\bbrz\bbrz_projekt\IGDB_DB.edmx' aktiviert. 
 // Um die Generierung von Legacycode zu aktivieren, ändern Sie den Wert der Designer-Eigenschaft 'Code Generation Strategy'
 // in 'Legacy ObjectContext'. Diese Eigenschaft wird im Eigenschaftenfenster angezeigt, wenn das Modell
 // im Designer geöffnet ist.

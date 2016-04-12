@@ -1,7 +1,6 @@
 ﻿@model bbrz_projekt.ViewModels.UserModel
 @{
     ViewBag.Title = "Profil bearbeiten";
-    <script type="text/javascript" src="~/scripts/"></script>
     <style>
         .help-block {
             display: block !important;
@@ -15,7 +14,7 @@
 <section id="page-title" class="page-title-pattern">
 
     <div class="container clearfix">
-        <h1 >Passwort ändern</h1>
+        <h1 >Profil bearbeiten</h1>
         <span>Mein Bereich</span>
         <ol class="breadcrumb hidden-xs hidden-sm" >
             <a href="~/User/Logout" class="button button button-border nomargin button-rounded" style="position: relative; top: -12px;">Ausloggen</a>
@@ -92,7 +91,7 @@
         $parmResult = GetURLParameter("result");
         if ($parmResult != "") {
             if ($parmResult == "True") {
-                $("#resultChange").html('<div class="style-msg successmsg"><div class="sb-msg"><i class="icon-thumbs-up"></i><strong>USerdaten wurden erfolgreich geändert!</strong></div></div>');
+                $("#resultChange").html('<div class="style-msg successmsg"><div class="sb-msg"><i class="icon-thumbs-up"></i><strong>Userdaten wurden erfolgreich geändert!</strong></div></div>');
             } else if ($parmResult == "False") {
                 $("#resultChange").html('<div class="style-msg errormsg"><div class="sb-msg"><i class="icon-remove"></i><strong>Upps. </strong> Userdaten konnten nicht geändert werden.</div></div>');
             }

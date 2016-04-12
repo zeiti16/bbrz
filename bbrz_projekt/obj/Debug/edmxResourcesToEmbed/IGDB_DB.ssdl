@@ -1,5 +1,15 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="InternetGamesDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
   <EntityType Name="tblGame">
     <Key>
       <PropertyRef Name="Game_ID" />
@@ -26,7 +36,7 @@
       <PropertyRef Name="Image_ID" />
     </Key>
     <Property Name="Image_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="ImageData" Type="varbinary" MaxLength="1" />
+    <Property Name="ImageData" Type="varbinary(max)" />
     <Property Name="FK_Game" Type="int" />
   </EntityType>
   <EntityType Name="tblPublisher">
@@ -57,19 +67,7 @@
     <Property Name="Lastname" Type="nvarchar" MaxLength="255" />
     <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="Administrator" Type="bit" />
-  </EntityType>
-  <!--Während der Generierung sind Fehler aufgetreten:
-Warnung 6002: Für Tabelle/Sicht 'InternetGamesDatabase.dbo.vUser' ist kein Primärschlüssel definiert. Der Schlüssel wurde abgeleitet, und die Definition wurde als schreibgeschützte Tabelle/Sicht erstellt.-->
-  <EntityType Name="vUser">
-    <Key>
-      <PropertyRef Name="Username" />
-      <PropertyRef Name="Password" />
-    </Key>
-    <Property Name="Username" Type="nvarchar" MaxLength="255" Nullable="false" />
-    <Property Name="Firstname" Type="nvarchar" MaxLength="255" />
-    <Property Name="Lastname" Type="nvarchar" MaxLength="255" />
-    <Property Name="Password" Type="nvarchar" MaxLength="255" Nullable="false" />
-    <Property Name="Administrator" Type="bit" />
+    <Property Name="Gesperrt" Type="bit" />
   </EntityType>
   <Association Name="fk_game">
     <End Role="tblGame" Type="Self.tblGame" Multiplicity="1" />
@@ -143,22 +141,46 @@ Warnung 6002: Für Tabelle/Sicht 'InternetGamesDatabase.dbo.vUser' ist kein Prim
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Function Name="AusgabeNewGame" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="InternetGamesDatabaseModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblGame" EntityType="Self.tblGame" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblGenre" EntityType="Self.tblGenre" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblImage" EntityType="Self.tblImage" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblPublisher" EntityType="Self.tblPublisher" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblRating" EntityType="Self.tblRating" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="tblUser" EntityType="Self.tblUser" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="vUser" EntityType="Self.vUser" store:Type="Views" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [vUser].[Username] AS [Username], 
-    [vUser].[Firstname] AS [Firstname], 
-    [vUser].[Lastname] AS [Lastname], 
-    [vUser].[Password] AS [Password], 
-    [vUser].[Administrator] AS [Administrator]
-    FROM [dbo].[vUser] AS [vUser]</DefiningQuery>
-    </EntitySet>
     <AssociationSet Name="fk_game" Association="Self.fk_game">
       <End Role="tblGame" EntitySet="tblGame" />
       <End Role="tblRating" EntitySet="tblRating" />
