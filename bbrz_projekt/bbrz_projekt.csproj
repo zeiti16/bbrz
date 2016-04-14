@@ -164,6 +164,7 @@
     <Content Include="Images\img-got-logo-cropped.png" />
     <Content Include="Images\logo-igdb.png" />
     <Content Include="Images\logo_es.png" />
+    <Content Include="Images\noImage.jpg" />
     <Content Include="Images\pattern2.png" />
     <Content Include="Images\preloader-dark.gif" />
     <Content Include="Images\tyriondrag.jpg" />

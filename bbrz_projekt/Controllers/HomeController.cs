@@ -23,8 +23,13 @@ namespace bbrz_projekt.Controllers
                 {
                     item.UserRating = 0;
                 }
-               NewGamesList.Add(new GameModel() { IdGame = item.Game_ID, TitleGame = item.GameTitel, GenreName = item.GenreTitel, Rating = (Double)item.UserRating, RatingCount = (int)item.CountRating, ReleaseDate = Convert.ToDateTime(item.ReleaseDate), BildId = (int)item.Image_ID});
+                if (item.Image_ID == null)
+                {
+                    item.Image_ID = 0;
+                }
+                NewGamesList.Add(new GameModel() { IdGame = item.Game_ID, TitleGame = item.GameTitel, GenreName = item.GenreTitel, Rating = (Double)item.UserRating, RatingCount = (int)item.CountRating, ReleaseDate = Convert.ToDateTime(item.ReleaseDate), BildId = (int)item.Image_ID});
             }
+            NewGamesList.Reverse();
             return View(NewGamesList);
         }
 

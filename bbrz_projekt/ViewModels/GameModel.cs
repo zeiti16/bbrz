@@ -38,8 +38,7 @@ namespace bbrz_projekt.ViewModels
                 connection.tblGame.Add(newGame);
                 connection.SaveChanges();
 
-                if (this.Bild.FileName != null)
-                {
+                try {
                     tblGame readID = (tblGame)connection.tblGame.Where(x => x.Title == this.TitleGame).SingleOrDefault();
 
                     if (readID != null)
@@ -53,7 +52,7 @@ namespace bbrz_projekt.ViewModels
                             return true;
                         }
                     }
-                } else
+                } catch
                 {
                     return true;
                 }
