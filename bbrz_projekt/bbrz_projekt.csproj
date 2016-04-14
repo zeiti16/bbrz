@@ -149,15 +149,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\myStyle.css" />
-    <Content Include="IGDB_DB.Context.tt">
+    <Content Include="Data\IDGBE.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>IGDB_DB.edmx</DependentUpon>
-      <LastGenOutput>IGDB_DB.Context.cs</LastGenOutput>
+      <DependentUpon>IDGBE.edmx</DependentUpon>
+      <LastGenOutput>IDGBE.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="IGDB_DB.tt">
+    <Content Include="Data\IDGBE.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>IGDB_DB.edmx</DependentUpon>
-      <LastGenOutput>IGDB_DB.cs</LastGenOutput>
+      <DependentUpon>IDGBE.edmx</DependentUpon>
+      <LastGenOutput>IDGBE.cs</LastGenOutput>
     </Content>
     <Content Include="Images\Game-of-Thrones.jpg" />
     <Content Include="Images\gta.jpg" />
@@ -188,14 +188,14 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Views\MySpace\MeinProfil.cshtml" />
     <Content Include="Views\MySpace\MeinPasswort.cshtml" />
-    <EntityDeploy Include="IGDB_DB.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>IGDB_DB.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="IGDB_DB.edmx.diagram">
-      <DependentUpon>IGDB_DB.edmx</DependentUpon>
-    </Content>
     <Content Include="Views\MySpace\SpielAnlegen.cshtml" />
+    <EntityDeploy Include="Data\IDGBE.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>IDGBE.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Data\IDGBE.edmx.diagram">
+      <DependentUpon>IDGBE.edmx</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -241,60 +241,61 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="AusgabeNewGame_Result.cs">
-      <DependentUpon>IGDB_DB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\MySpaceController.cs" />
     <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="Data\AusgabeNewGame_Result.cs">
+      <DependentUpon>IDGBE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\IDGBE.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IDGBE.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\IDGBE.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IDGBE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\IDGBE.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IDGBE.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>IDGBE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\sp_helpdiagrams_Result.cs">
+      <DependentUpon>IDGBE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\sysdiagrams.cs">
+      <DependentUpon>IDGBE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tblGame.cs">
+      <DependentUpon>IDGBE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tblGenre.cs">
+      <DependentUpon>IDGBE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tblImage.cs">
+      <DependentUpon>IDGBE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tblPublisher.cs">
+      <DependentUpon>IDGBE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tblRating.cs">
+      <DependentUpon>IDGBE.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\tblUser.cs">
+      <DependentUpon>IDGBE.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
-    </Compile>
-    <Compile Include="IGDB_DB.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IGDB_DB.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="IGDB_DB.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IGDB_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="IGDB_DB.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>IGDB_DB.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helper\Verify.cs" />
     <Compile Include="Helper\Hash.cs" />
-    <Compile Include="sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>IGDB_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sp_helpdiagrams_Result.cs">
-      <DependentUpon>IGDB_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="sysdiagrams.cs">
-      <DependentUpon>IGDB_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblGame.cs">
-      <DependentUpon>IGDB_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblGenre.cs">
-      <DependentUpon>IGDB_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblImage.cs">
-      <DependentUpon>IGDB_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblPublisher.cs">
-      <DependentUpon>IGDB_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblRating.cs">
-      <DependentUpon>IGDB_DB.tt</DependentUpon>
-    </Compile>
-    <Compile Include="tblUser.cs">
-      <DependentUpon>IGDB_DB.tt</DependentUpon>
-    </Compile>
     <Compile Include="ViewModels\GameModel.cs" />
     <Compile Include="ViewModels\ImageModel.cs" />
     <Compile Include="ViewModels\UserModel.cs" />
@@ -306,6 +307,7 @@
     <Folder Include="Models\" />
     <Folder Include="scripts\plugins\" />
     <Folder Include="scripts\vmap\" />
+    <Folder Include="Views\Image\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

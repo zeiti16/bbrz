@@ -36,7 +36,7 @@
                         <span class="labelProfilChange">Spiel Name:</span>
                     </div>
                     <div class="col_two_third col_last nobottommargin">
-                        <input type="text" data-validation="length" data-validation-length="min3" name="title" class="form-control input-md" data-validation-error-msg="Der Spieletitel muss aus mindestens 3 Zeichen bestehen" />
+                        <input type="text" data-validation="length" data-validation-length="min3" name="TitleGame" class="form-control input-md" data-validation-error-msg="Der Spieletitel muss aus mindestens 3 Zeichen bestehen" />
                     </div>
                 </div>
 
@@ -54,7 +54,7 @@
                         <span class="labelProfilChange">Genre:</span>
                     </div>
                     <div class="col_two_third col_last nobottommargin">
-                        <select name="genre" class="form-control input-md" data-validation="number" data-validation-allowing="range[1;200]" data-validation-error-msg="Bitte wähle ein Genre aus!">
+                        <select name="genreId" class="form-control input-md" data-validation="number" data-validation-allowing="range[1;200]" data-validation-error-msg="Bitte wähle ein Genre aus!">
                             <option value="0">Wähle einen Genre aus</option>
                             @foreach (var elem in ViewBag.Genre)
                             {
@@ -70,7 +70,7 @@
                         <span class="labelProfilChange">Publisher:</span>
                     </div>
                     <div class="col_two_third col_last nobottommargin">
-                        <select name="publisher" class="form-control input-md" data-validation="number" data-validation-allowing="range[1;200]" data-validation-error-msg="Bitte wähle einen Publisher aus!">
+                        <select name="publisherId" class="form-control input-md" data-validation="number" data-validation-allowing="range[1;200]" data-validation-error-msg="Bitte wähle einen Publisher aus!">
                             <option value="0">Wähle ein Publisher aus</option>
                             @foreach (var elem in ViewBag.Publisher)
                             {

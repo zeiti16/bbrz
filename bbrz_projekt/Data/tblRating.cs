@@ -7,13 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace bbrz_projekt
+namespace bbrz_projekt.Data
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagramdefinition_Result
+    public partial class tblRating
     {
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public byte[] RatingDate { get; set; }
+        public Nullable<int> Rating { get; set; }
+        public int FK_Game { get; set; }
+        public string FK_User { get; set; }
+    
+        public virtual tblGame tblGame { get; set; }
+        public virtual tblUser tblUser { get; set; }
     }
 }

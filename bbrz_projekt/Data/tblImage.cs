@@ -7,19 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace bbrz_projekt
+namespace bbrz_projekt.Data
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class tblRating
+    public partial class tblImage
     {
-        public byte[] RatingDate { get; set; }
-        public Nullable<int> Rating { get; set; }
-        public int FK_Game { get; set; }
-        public string FK_User { get; set; }
+        public int Image_ID { get; set; }
+        public byte[] ImageData { get; set; }
+        public Nullable<int> FK_Game { get; set; }
     
         public virtual tblGame tblGame { get; set; }
-        public virtual tblUser tblUser { get; set; }
     }
 }

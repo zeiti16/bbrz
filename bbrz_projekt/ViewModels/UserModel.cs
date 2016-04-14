@@ -1,4 +1,5 @@
-﻿using System;
+﻿using bbrz_projekt.Data;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -17,7 +18,7 @@ namespace bbrz_projekt.ViewModels
         public string Pass { get; set; }
         public bool Gesperrt { get; set; }
 
-        private IGDBE connection = new IGDBE();
+        private igdbEntity connection = new Data.igdbEntity();
 
         public bool CheckUserEmailPasswort()
         {

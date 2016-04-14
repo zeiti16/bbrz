@@ -1,4 +1,5 @@
-﻿using bbrz_projekt.ViewModels;
+﻿using bbrz_projekt.Data;
+using bbrz_projekt.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace bbrz_projekt.Controllers
 {
     public class MySpaceController : Controller
     {
-        private IGDBE connection = new IGDBE();
+        private igdbEntity connection = new igdbEntity();
 
         // GET: MySpace
         [Authorize]

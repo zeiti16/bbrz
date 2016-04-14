@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace bbrz_projekt
+namespace bbrz_projekt.Data
 {
     using System;
     using System.Data.Entity;
@@ -15,10 +15,10 @@ namespace bbrz_projekt
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class IGDBE : DbContext
+    public partial class igdbEntity : DbContext
     {
-        public IGDBE()
-            : base("name=IGDBE")
+        public igdbEntity()
+            : base("name=igdbEntity")
         {
         }
     

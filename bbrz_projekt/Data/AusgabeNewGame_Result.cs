@@ -7,16 +7,18 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace bbrz_projekt
+namespace bbrz_projekt.Data
 {
     using System;
     
-    public partial class sp_helpdiagrams_Result
+    public partial class AusgabeNewGame_Result
     {
-        public string Database { get; set; }
-        public string Name { get; set; }
-        public int ID { get; set; }
-        public string Owner { get; set; }
-        public int OwnerID { get; set; }
+        public int Game_ID { get; set; }
+        public Nullable<System.DateTime> ReleaseDate { get; set; }
+        public string GameTitel { get; set; }
+        public string GenreTitel { get; set; }
+        public Nullable<int> Image_ID { get; set; }
+        public Nullable<int> UserRating { get; set; }
+        public Nullable<int> CountRating { get; set; }
     }
 }

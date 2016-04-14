@@ -7,17 +7,17 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace bbrz_projekt
+namespace bbrz_projekt.Data
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class tblImage
+    public partial class sysdiagrams
     {
-        public int Image_ID { get; set; }
-        public byte[] ImageData { get; set; }
-        public Nullable<int> FK_Game { get; set; }
-    
-        public virtual tblGame tblGame { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

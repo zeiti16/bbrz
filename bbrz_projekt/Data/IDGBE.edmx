@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="InternetGamesDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="InternetGamesDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -211,7 +211,8 @@
             <End Role="tblGame" EntitySet="tblGame" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="InternetGamesDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -234,6 +235,7 @@
           <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="Visible" Type="Boolean" />
           <Property Name="ReleaseDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatenDate" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="FK_User" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="FK_Genre" Type="Int32" />
           <Property Name="FK_Publisher" Type="Int32" />
@@ -367,7 +369,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="IGDBE" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="igdbEntity" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="tblGame" EntityType="Self.tblGame" />
           <EntitySet Name="tblGenre" EntityType="Self.tblGenre" />
@@ -433,10 +435,10 @@
         </EntityContainer>
         <ComplexType Name="AusgabeNewGame_Result">
           <Property Type="Int32" Name="Game_ID" Nullable="false" />
-          <Property Type="Binary" Name="CreatenDate" Nullable="false" MaxLength="8" />
+          <Property Type="DateTime" Name="ReleaseDate" Nullable="true" Precision="23" />
           <Property Type="String" Name="GameTitel" Nullable="true" MaxLength="255" />
           <Property Type="String" Name="GenreTitel" Nullable="true" MaxLength="255" />
-          <Property Type="Binary" Name="ImageData" Nullable="true" />
+          <Property Type="Int32" Name="Image_ID" Nullable="true" />
           <Property Type="Int32" Name="UserRating" Nullable="true" />
           <Property Type="Int32" Name="CountRating" Nullable="true" />
         </ComplexType>
@@ -456,7 +458,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="InternetGamesDatabaseModelStoreContainer" CdmEntityContainer="IGDBE">
+        <EntityContainerMapping StorageEntityContainer="InternetGamesDatabaseModelStoreContainer" CdmEntityContainer="igdbEntity">
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="InternetGamesDatabaseModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -476,6 +478,7 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Visible" ColumnName="Visible" />
                 <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="CreatenDate" ColumnName="CreatenDate" />
                 <ScalarProperty Name="FK_User" ColumnName="FK_User" />
                 <ScalarProperty Name="FK_Genre" ColumnName="FK_Genre" />
                 <ScalarProperty Name="FK_Publisher" ColumnName="FK_Publisher" />
@@ -535,10 +538,10 @@
             <ResultMapping>
               <ComplexTypeMapping TypeName="InternetGamesDatabaseModel.AusgabeNewGame_Result">
                 <ScalarProperty Name="Game_ID" ColumnName="Game_ID" />
-                <ScalarProperty Name="CreatenDate" ColumnName="CreatenDate" />
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
                 <ScalarProperty Name="GameTitel" ColumnName="GameTitel" />
                 <ScalarProperty Name="GenreTitel" ColumnName="GenreTitel" />
-                <ScalarProperty Name="ImageData" ColumnName="ImageData" />
+                <ScalarProperty Name="Image_ID" ColumnName="Image_ID" />
                 <ScalarProperty Name="UserRating" ColumnName="UserRating" />
                 <ScalarProperty Name="CountRating" ColumnName="CountRating" />
               </ComplexTypeMapping>

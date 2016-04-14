@@ -1,7 +1,7 @@
-﻿
+﻿@model IEnumerable<bbrz_projekt.ViewModels.GameModel>
 @{
     ViewBag.Title = "Index";
- 
+
 }
 
 
@@ -49,27 +49,29 @@
         <div id="oc-images" class="owl-carousel owl-carousel-full news-carousel header-stick nobottommargin">
 
                 @{
-                    for (int i = 1; i < 6; i++)
+                    foreach (var item in @Model)
                     {
-                        int test = i * 20;
-
+                        double percentRating = (item.Rating * 20);
                         <div class="oc-item">
-                            <a href="#"><img src="~/Images/got.jpg" alt="Image 3"></a>
+                            
+                            <a href="#"><img src="@Url.Action("GetImage","Image", new { id = item.BildId }).ToString()" /></a>
+
                             <div class="overlay">
                                 <div class="text-overlay">
-                                    <span class="label label-danger">World</span>
+                                    <span class="label label-danger">@item.GenreName.ToString()</span>
                                     <div class="text-overlay-title">
-                                        <h2>Political, vulnerable citizens eradicate philanthropy.</h2>
+                                        <h2>@item.TitleGame</h2>
                                     </div>
                                     <div class="text-overlay-meta">
-                                        <span>8th Nov 2014</span>
+                                        <span>@item.ReleaseDate.ToString("dd / yyyy")</span>
                                     </div>
                                     <a href="#" class="button button-reveal button-border button-light button-small button-rounded uppercase tright noleftmargin topmargin-sm"><span>Mehr Erfahren</span><i class="icon-angle-right"></i></a>
                                 </div>
-                                <div class="rounded-skill" data-color="#e74c3c" data-trackcolor="rgba(0,0,0,0.1)" data-size="80" data-percent="@test" data-width="7" data-animate="3000">4.0</div>
+                                <div class="rounded-skill" data-color="#e74c3c" data-trackcolor="rgba(0,0,0,0.1)" data-size="80" data-percent="@percentRating" data-width="7" data-animate="3000">@item.Rating</div>
                             </div>
                         </div>
-                        }
+                    }
+
                 }
 
         </div>

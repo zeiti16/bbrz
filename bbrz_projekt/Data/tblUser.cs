@@ -7,23 +7,30 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace bbrz_projekt
+namespace bbrz_projekt.Data
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class tblGenre
+    public partial class tblUser
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblGenre()
+        public tblUser()
         {
             this.tblGame = new HashSet<tblGame>();
+            this.tblRating = new HashSet<tblRating>();
         }
     
-        public int Genre_ID { get; set; }
-        public string Title { get; set; }
+        public string Username { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
+        public string Password { get; set; }
+        public Nullable<bool> Administrator { get; set; }
+        public Nullable<bool> Gesperrt { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblGame> tblGame { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblRating> tblRating { get; set; }
     }
 }

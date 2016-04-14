@@ -111,3 +111,4 @@ C:\Projekt\bbrz\bbrz_projekt\bin\System.Web.WebPages.Deployment.xml
 C:\Projekt\bbrz\bbrz_projekt\bin\System.Web.WebPages.Razor.xml
 C:\Projekt\bbrz\bbrz_projekt\obj\Debug\bbrz_projekt.dll
 C:\Projekt\bbrz\bbrz_projekt\obj\Debug\bbrz_projekt.pdb
+C:\Projekt\bbrz\bbrz_projekt\obj\Debug\bbrz_projekt.csprojResolveAssemblyReference.cache

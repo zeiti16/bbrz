@@ -7,23 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace bbrz_projekt
+namespace bbrz_projekt.Data
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class tblPublisher
+    public partial class tblGenre
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public tblPublisher()
+        public tblGenre()
         {
             this.tblGame = new HashSet<tblGame>();
         }
     
-        public int Publisher_ID { get; set; }
-        public string Name { get; set; }
-        public Nullable<System.DateTime> FoundingDate { get; set; }
-        public string Url { get; set; }
+        public int Genre_ID { get; set; }
+        public string Title { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblGame> tblGame { get; set; }
