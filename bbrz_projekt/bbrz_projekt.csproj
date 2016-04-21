@@ -149,15 +149,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\myStyle.css" />
-    <Content Include="Data\IDGBE.Context.tt">
+    <Content Include="Data\igdb.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>IDGBE.edmx</DependentUpon>
-      <LastGenOutput>IDGBE.Context.cs</LastGenOutput>
+      <DependentUpon>igdb.edmx</DependentUpon>
+      <LastGenOutput>igdb.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Data\IDGBE.tt">
+    <Content Include="Data\igdb.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>IDGBE.edmx</DependentUpon>
-      <LastGenOutput>IDGBE.cs</LastGenOutput>
+      <DependentUpon>igdb.edmx</DependentUpon>
+      <LastGenOutput>igdb.cs</LastGenOutput>
     </Content>
     <Content Include="Images\Game-of-Thrones.jpg" />
     <Content Include="Images\gta.jpg" />
@@ -179,6 +179,11 @@
     <Content Include="scripts\jquery.form-validator.min.js" />
     <Content Include="scripts\jquery.spin.js" />
     <Content Include="scripts\location.js" />
+    <Content Include="scripts\rating\delete.gif" />
+    <Content Include="scripts\rating\jquery.rateit.js" />
+    <Content Include="scripts\rating\jquery.rateit.min.js" />
+    <Content Include="scripts\rating\rateit.css" />
+    <Content Include="scripts\rating\star.gif" />
     <Content Include="scripts\security.js" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -190,18 +195,20 @@
     <Content Include="Views\MySpace\MeinProfil.cshtml" />
     <Content Include="Views\MySpace\MeinPasswort.cshtml" />
     <Content Include="Views\MySpace\SpielAnlegen.cshtml" />
-    <EntityDeploy Include="Data\IDGBE.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>IDGBE.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Data\IDGBE.edmx.diagram">
-      <DependentUpon>IDGBE.edmx</DependentUpon>
-    </Content>
     <Content Include="Views\Admin\Create.cshtml" />
     <Content Include="Views\Admin\Delete.cshtml" />
     <Content Include="Views\Admin\Details.cshtml" />
     <Content Include="Views\Admin\Edit.cshtml" />
-    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\Start.cshtml" />
+    <Content Include="Views\GameList\Index.cshtml" />
+    <Content Include="scripts\rating\jquery.rateit.min.js.map" />
+    <EntityDeploy Include="Data\igdb.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>igdb.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Data\igdb.edmx.diagram">
+      <DependentUpon>igdb.edmx</DependentUpon>
+    </Content>
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -248,54 +255,59 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ByteArrayOutputStream.cs" />
+    <Compile Include="Controllers\GameListController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImageController.cs" />
     <Compile Include="Controllers\MySpaceController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\AusgabeNewGame_Result.cs">
-      <DependentUpon>IDGBE.tt</DependentUpon>
+      <DependentUpon>igdb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\IDGBE.Context.cs">
+    <Compile Include="Data\igdb.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IDGBE.Context.tt</DependentUpon>
+      <DependentUpon>igdb.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\IDGBE.cs">
+    <Compile Include="Data\igdb.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IDGBE.tt</DependentUpon>
+      <DependentUpon>igdb.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\IDGBE.Designer.cs">
+    <Compile Include="Data\igdb.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>IDGBE.edmx</DependentUpon>
+      <DependentUpon>igdb.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Data\LadeGamesListe_Result.cs">
+      <DependentUpon>igdb.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\sp_helpdiagramdefinition_Result.cs">
-      <DependentUpon>IDGBE.tt</DependentUpon>
+      <DependentUpon>igdb.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\sp_helpdiagrams_Result.cs">
-      <DependentUpon>IDGBE.tt</DependentUpon>
+      <DependentUpon>igdb.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\sysdiagrams.cs">
-      <DependentUpon>IDGBE.tt</DependentUpon>
+      <DependentUpon>igdb.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\tblGame.cs">
-      <DependentUpon>IDGBE.tt</DependentUpon>
+      <DependentUpon>igdb.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\tblGenre.cs">
-      <DependentUpon>IDGBE.tt</DependentUpon>
+      <DependentUpon>igdb.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\tblImage.cs">
-      <DependentUpon>IDGBE.tt</DependentUpon>
+      <DependentUpon>igdb.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\tblPublisher.cs">
-      <DependentUpon>IDGBE.tt</DependentUpon>
+      <DependentUpon>igdb.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\tblRating.cs">
-      <DependentUpon>IDGBE.tt</DependentUpon>
+      <DependentUpon>igdb.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\tblUser.cs">
-      <DependentUpon>IDGBE.tt</DependentUpon>
+      <DependentUpon>igdb.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

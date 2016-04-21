@@ -11,7 +11,7 @@ namespace bbrz_projekt.Controllers
 {
     public class HomeController : Controller
     {
-        private igdbEntity connection = new igdbEntity();
+        private igdbDB connection = new igdbDB();
         // GET: Home
         public ActionResult Index()
         {

@@ -15,10 +15,10 @@ namespace bbrz_projekt.Data
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class igdbEntity : DbContext
+    public partial class igdbDB : DbContext
     {
-        public igdbEntity()
-            : base("name=igdbEntity")
+        public igdbDB()
+            : base("name=igdbDB")
         {
         }
     
@@ -38,6 +38,27 @@ namespace bbrz_projekt.Data
         public virtual ObjectResult<AusgabeNewGame_Result> AusgabeNewGame()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AusgabeNewGame_Result>("AusgabeNewGame");
+        }
+    
+        public virtual ObjectResult<LadeGamesListe_Result> LadeGamesListe(Nullable<int> page, string searchText, Nullable<int> kategorieId, Nullable<int> ratMin)
+        {
+            var pageParameter = page.HasValue ?
+                new ObjectParameter("Page", page) :
+                new ObjectParameter("Page", typeof(int));
+    
+            var searchTextParameter = searchText != null ?
+                new ObjectParameter("SearchText", searchText) :
+                new ObjectParameter("SearchText", typeof(string));
+    
+            var kategorieIdParameter = kategorieId.HasValue ?
+                new ObjectParameter("KategorieId", kategorieId) :
+                new ObjectParameter("KategorieId", typeof(int));
+    
+            var ratMinParameter = ratMin.HasValue ?
+                new ObjectParameter("RatMin", ratMin) :
+                new ObjectParameter("RatMin", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<LadeGamesListe_Result>("LadeGamesListe", pageParameter, searchTextParameter, kategorieIdParameter, ratMinParameter);
         }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)

@@ -7,38 +7,32 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using bbrz_projekt.Data;
+using bbrz_projekt.ViewModels;
 
 namespace bbrz_projekt.Controllers
 {
     public class AdminController : Controller
     {
-        private igdbEntity db = new igdbEntity();
+        private igdbDB db = new igdbDB();
 
         // GET: Admin
-        public ActionResult Index()
+        [Authorize]
+        public ActionResult Start()
         {
-            return View(db.tblUser.ToList());
-        }
-
-        // GET: Admin/Details/5
-        public ActionResult Details(string id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            tblUser tblUser = db.tblUser.Find(id);
-            if (tblUser == null)
-            {
-                return HttpNotFound();
-            }
-            return View(tblUser);
+            if (Verify.IsUserAdmin(User.Identity.Name))
+                return View(db.tblUser.ToList());
+            else
+                return RedirectToAction("Index", "Home");
         }
 
         // GET: Admin/Create
+        [Authorize]
         public ActionResult Create()
         {
-            return View();
+            if (Verify.IsUserAdmin(User.Identity.Name))
+                return View();
+            else
+                return RedirectToAction("Index", "Home");
         }
 
         // POST: Admin/Create
@@ -48,34 +42,49 @@ namespace bbrz_projekt.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "Username,Firstname,Lastname,Password,Administrator,Gesperrt")] tblUser tblUser)
         {
-            try { 
-            if (ModelState.IsValid)
+            if (Verify.IsUserAdmin(User.Identity.Name))
             {
-                db.tblUser.Add(tblUser);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            } catch
+                try
+                {
+                    if (ModelState.IsValid)
+                    {
+                        db.tblUser.Add(tblUser);
+                        db.SaveChanges();
+                        return RedirectToAction("Start");
+                    }
+                }
+                catch
+                {
+
+                }
+                return View(tblUser);
+            } else
             {
-
+                return RedirectToAction("Index", "Home");
             }
-
-            return View(tblUser);
         }
 
         // GET: Admin/Edit/5
+        [Authorize]
         public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (Verify.IsUserAdmin(User.Identity.Name))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                tblUser tblUser = db.tblUser.Find(id);
+                if (tblUser == null)
+                {
+                    return HttpNotFound();
+                }
+                return View(tblUser);
             }
-            tblUser tblUser = db.tblUser.Find(id);
-            if (tblUser == null)
+            else
             {
-                return HttpNotFound();
+                return RedirectToAction("Index", "Home");
             }
-            return View(tblUser);
         }
 
         // POST: Admin/Edit/5
@@ -83,18 +92,27 @@ namespace bbrz_projekt.Controllers
         // finden Sie unter http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Username,Firstname,Lastname,Password,Administrator,Gesperrt")] tblUser tblUser)
+        public ActionResult Edit([Bind(Include = "Username,Firstname,Lastname,Administrator,Gesperrt")] tblUser tblUser)
         {
-            if (ModelState.IsValid)
+            if (Verify.IsUserAdmin(User.Identity.Name))
             {
-                db.Entry(tblUser).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    tblUser.Password = db.tblUser.Where(x => x.Username == tblUser.Username).Select(f => f.Password).SingleOrDefault();
+                    db.Entry(tblUser).State = EntityState.Modified;
+                    db.SaveChanges();
+                    return RedirectToAction("Start");
+                }
+                return View(tblUser);
             }
-            return View(tblUser);
-        }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            }
 
         // GET: Admin/Delete/5
+        [Authorize]
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -117,7 +135,7 @@ namespace bbrz_projekt.Controllers
             tblUser tblUser = db.tblUser.Find(id);
             db.tblUser.Remove(tblUser);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Start");
         }
 
         protected override void Dispose(bool disposing)
@@ -128,5 +146,6 @@ namespace bbrz_projekt.Controllers
             }
             base.Dispose(disposing);
         }
+
     }
 }

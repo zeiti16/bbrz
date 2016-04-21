@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using bbrz_projekt.ViewModels
+<!DOCTYPE html>
 <html dir="ltr" lang="de-de">
 <head>
 
@@ -37,9 +38,9 @@
                             <li>
                                 @Html.ActionLink("Home","Index","Home")
                             </li>
-                            @if (User.Identity.IsAuthenticated)
-                            {
-                                <li class="current sub-menu">
+                                                        @if (User.Identity.IsAuthenticated)
+                                                        {
+<li class="current sub-menu">
                                     <a href="#" id="UserEmail" class="sf-with-ul"><div style="color: #1ABC9C; cursor: pointer;">@User.Identity.Name <i class="icon-caret-down"> </i></div></a>
                                     <ul style="display: none;">
                                         <li>@Html.ActionLink("Spiel Erzeugen", "SpielAnlegen", "MySpace")</li>
@@ -48,6 +49,12 @@
                                         <li>@Html.ActionLink("Ausloggen", "Logout", "User")</li>
                                     </ul>
                                 </li>
+                                                            if (Verify.IsUserAdmin(User.Identity.Name) == true)
+                                                            {
+                                                                <li>
+                                                                    @Html.ActionLink("Admin Bereich", "Start", "Admin")
+                                                                </li>
+                                                            }
                                 <li class="mega-menu">
 
                                 </li>

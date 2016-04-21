@@ -18,7 +18,7 @@ namespace bbrz_projekt.ViewModels
         public string Pass { get; set; }
         public bool Gesperrt { get; set; }
 
-        private igdbEntity connection = new Data.igdbEntity();
+        private igdbDB connection = new Data.igdbDB();
 
         public bool CheckUserEmailPasswort()
         {

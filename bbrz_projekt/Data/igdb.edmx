@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="InternetGamesDatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="igdb_db.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -148,6 +148,12 @@
         </Association>
         <Function Name="AusgabeNewGame" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+        <Function Name="LadeGamesListe" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Page" Type="int" Mode="In" />
+          <Parameter Name="SearchText" Type="varchar" Mode="In" />
+          <Parameter Name="KategorieId" Type="int" Mode="In" />
+          <Parameter Name="RatMin" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
           <Parameter Name="owner_id" Type="int" Mode="In" />
@@ -178,7 +184,7 @@
           <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
-        <EntityContainer Name="InternetGamesDatabaseModelStoreContainer">
+        <EntityContainer Name="igdb_dbStoreContainer">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblGame" EntityType="Self.tblGame" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="tblGenre" EntityType="Self.tblGenre" Schema="dbo" store:Type="Tables" />
@@ -215,7 +221,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="InternetGamesDatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="igdb_db" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="sysdiagrams">
           <Key>
             <PropertyRef Name="diagram_id" />
@@ -369,7 +375,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="igdbEntity" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="igdbDB" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="tblGame" EntityType="Self.tblGame" />
           <EntitySet Name="tblGenre" EntityType="Self.tblGenre" />
@@ -401,7 +407,13 @@
             <End Role="tblUser" EntitySet="tblUser" />
             <End Role="tblRating" EntitySet="tblRating" />
           </AssociationSet>
-          <FunctionImport Name="AusgabeNewGame" ReturnType="Collection(InternetGamesDatabaseModel.AusgabeNewGame_Result)" />
+          <FunctionImport Name="AusgabeNewGame" ReturnType="Collection(igdb_db.AusgabeNewGame_Result)" />
+          <FunctionImport Name="LadeGamesListe" ReturnType="Collection(igdb_db.LadeGamesListe_Result)">
+            <Parameter Name="Page" Mode="In" Type="Int32" />
+            <Parameter Name="SearchText" Mode="In" Type="String" />
+            <Parameter Name="KategorieId" Mode="In" Type="Int32" />
+            <Parameter Name="RatMin" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
@@ -418,11 +430,11 @@
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(InternetGamesDatabaseModel.sp_helpdiagramdefinition_Result)">
+          <FunctionImport Name="sp_helpdiagramdefinition" ReturnType="Collection(igdb_db.sp_helpdiagramdefinition_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(InternetGamesDatabaseModel.sp_helpdiagrams_Result)">
+          <FunctionImport Name="sp_helpdiagrams" ReturnType="Collection(igdb_db.sp_helpdiagrams_Result)">
             <Parameter Name="diagramname" Mode="In" Type="String" />
             <Parameter Name="owner_id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -442,6 +454,17 @@
           <Property Type="Int32" Name="UserRating" Nullable="true" />
           <Property Type="Int32" Name="CountRating" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="LadeGamesListe_Result">
+          <Property Type="Int32" Name="Game_ID" Nullable="false" />
+          <Property Type="String" Name="GenreTitel" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="GameTitel" Nullable="true" MaxLength="255" />
+          <Property Type="Boolean" Name="Visible" Nullable="true" />
+          <Property Type="DateTime" Name="ReleaseDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Image_ID" Nullable="true" />
+          <Property Type="Int32" Name="CountRows" Nullable="true" />
+          <Property Type="Int32" Name="UserRating" Nullable="true" />
+          <Property Type="Int32" Name="CountRating" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
           <Property Type="Binary" Name="definition" Nullable="true" />
@@ -458,9 +481,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="InternetGamesDatabaseModelStoreContainer" CdmEntityContainer="igdbEntity">
+        <EntityContainerMapping StorageEntityContainer="igdb_dbStoreContainer" CdmEntityContainer="igdbDB">
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="InternetGamesDatabaseModel.sysdiagrams">
+            <EntityTypeMapping TypeName="igdb_db.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -471,7 +494,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblGame">
-            <EntityTypeMapping TypeName="InternetGamesDatabaseModel.tblGame">
+            <EntityTypeMapping TypeName="igdb_db.tblGame">
               <MappingFragment StoreEntitySet="tblGame">
                 <ScalarProperty Name="Game_ID" ColumnName="Game_ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -486,7 +509,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblGenre">
-            <EntityTypeMapping TypeName="InternetGamesDatabaseModel.tblGenre">
+            <EntityTypeMapping TypeName="igdb_db.tblGenre">
               <MappingFragment StoreEntitySet="tblGenre">
                 <ScalarProperty Name="Genre_ID" ColumnName="Genre_ID" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
@@ -494,7 +517,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblImage">
-            <EntityTypeMapping TypeName="InternetGamesDatabaseModel.tblImage">
+            <EntityTypeMapping TypeName="igdb_db.tblImage">
               <MappingFragment StoreEntitySet="tblImage">
                 <ScalarProperty Name="Image_ID" ColumnName="Image_ID" />
                 <ScalarProperty Name="ImageData" ColumnName="ImageData" />
@@ -503,7 +526,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblPublisher">
-            <EntityTypeMapping TypeName="InternetGamesDatabaseModel.tblPublisher">
+            <EntityTypeMapping TypeName="igdb_db.tblPublisher">
               <MappingFragment StoreEntitySet="tblPublisher">
                 <ScalarProperty Name="Publisher_ID" ColumnName="Publisher_ID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -513,7 +536,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblRating">
-            <EntityTypeMapping TypeName="InternetGamesDatabaseModel.tblRating">
+            <EntityTypeMapping TypeName="igdb_db.tblRating">
               <MappingFragment StoreEntitySet="tblRating">
                 <ScalarProperty Name="RatingDate" ColumnName="RatingDate" />
                 <ScalarProperty Name="Rating" ColumnName="Rating" />
@@ -523,7 +546,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="tblUser">
-            <EntityTypeMapping TypeName="InternetGamesDatabaseModel.tblUser">
+            <EntityTypeMapping TypeName="igdb_db.tblUser">
               <MappingFragment StoreEntitySet="tblUser">
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="Firstname" ColumnName="Firstname" />
@@ -534,9 +557,9 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="AusgabeNewGame" FunctionName="InternetGamesDatabaseModel.Store.AusgabeNewGame">
+          <FunctionImportMapping FunctionImportName="AusgabeNewGame" FunctionName="igdb_db.Store.AusgabeNewGame">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="InternetGamesDatabaseModel.AusgabeNewGame_Result">
+              <ComplexTypeMapping TypeName="igdb_db.AusgabeNewGame_Result">
                 <ScalarProperty Name="Game_ID" ColumnName="Game_ID" />
                 <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
                 <ScalarProperty Name="GameTitel" ColumnName="GameTitel" />
@@ -547,20 +570,35 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="InternetGamesDatabaseModel.Store.sp_alterdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="InternetGamesDatabaseModel.Store.sp_creatediagram" />
-          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="InternetGamesDatabaseModel.Store.sp_dropdiagram" />
-          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="InternetGamesDatabaseModel.Store.sp_helpdiagramdefinition">
+          <FunctionImportMapping FunctionImportName="LadeGamesListe" FunctionName="igdb_db.Store.LadeGamesListe">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="InternetGamesDatabaseModel.sp_helpdiagramdefinition_Result">
+              <ComplexTypeMapping TypeName="igdb_db.LadeGamesListe_Result">
+                <ScalarProperty Name="Game_ID" ColumnName="Game_ID" />
+                <ScalarProperty Name="GenreTitel" ColumnName="GenreTitel" />
+                <ScalarProperty Name="GameTitel" ColumnName="GameTitel" />
+                <ScalarProperty Name="Visible" ColumnName="Visible" />
+                <ScalarProperty Name="ReleaseDate" ColumnName="ReleaseDate" />
+                <ScalarProperty Name="Image_ID" ColumnName="Image_ID" />
+                <ScalarProperty Name="CountRows" ColumnName="CountRows" />
+                <ScalarProperty Name="UserRating" ColumnName="UserRating" />
+                <ScalarProperty Name="CountRating" ColumnName="CountRating" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="igdb_db.Store.sp_alterdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="igdb_db.Store.sp_creatediagram" />
+          <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="igdb_db.Store.sp_dropdiagram" />
+          <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="igdb_db.Store.sp_helpdiagramdefinition">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="igdb_db.sp_helpdiagramdefinition_Result">
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="InternetGamesDatabaseModel.Store.sp_helpdiagrams">
+          <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="igdb_db.Store.sp_helpdiagrams">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="InternetGamesDatabaseModel.sp_helpdiagrams_Result">
+              <ComplexTypeMapping TypeName="igdb_db.sp_helpdiagrams_Result">
                 <ScalarProperty Name="Database" ColumnName="Database" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -569,8 +607,8 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="InternetGamesDatabaseModel.Store.sp_renamediagram" />
-          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="InternetGamesDatabaseModel.Store.sp_upgraddiagrams" />
+          <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="igdb_db.Store.sp_renamediagram" />
+          <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="igdb_db.Store.sp_upgraddiagrams" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

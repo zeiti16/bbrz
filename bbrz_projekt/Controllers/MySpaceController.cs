@@ -10,7 +10,7 @@ namespace bbrz_projekt.Controllers
 {
     public class MySpaceController : Controller
     {
-        private igdbEntity connection = new igdbEntity();
+        private igdbDB connection = new igdbDB();
 
         // GET: MySpace
         [Authorize]

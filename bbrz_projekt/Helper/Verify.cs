@@ -4,13 +4,16 @@ using System.Linq;
 using System.Web;
 using System.Globalization;
 using System.Text.RegularExpressions;
+using bbrz_projekt.Data;
 
 namespace bbrz_projekt.ViewModels
 {
     public static class Verify
     {
-  
-            static Regex ValidEmailRegex = CreateValidEmailRegex();
+
+        private static igdbDB db = new igdbDB();
+
+        static Regex ValidEmailRegex = CreateValidEmailRegex();
 
             private static Regex CreateValidEmailRegex()
             {
@@ -32,6 +35,19 @@ namespace bbrz_projekt.ViewModels
             {
             return HttpContext.Current.Server.HtmlEncode(wert);
             }
-        }
+
+            public static bool IsUserAdmin(string emailUser)
+            {
+            if (emailUser != "")
+            {
+                var y = db.tblUser.Where(x => x.Username == emailUser).SingleOrDefault();
+                if (y.Administrator == true)
+                {
+                    return true;
+                }
+            }
+            return false;
+            }
+    }
 
     }

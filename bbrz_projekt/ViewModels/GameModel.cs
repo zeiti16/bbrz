@@ -13,7 +13,9 @@ namespace bbrz_projekt.ViewModels
         public int IdGame { get; set; }
         public double Rating { get; set; }
         public int RatingCount { get; set; }
+        public int MinRating { get; set; }
         public string TitleGame { get; set; }
+        public string SearchName { get; set; }
         public string Description { get; set; }
         public int GenreId { get; set; }
         public string GenreName { get; set; }
@@ -23,7 +25,7 @@ namespace bbrz_projekt.ViewModels
         public HttpPostedFileWrapper Bild { get; set; }
         public int BildId { get; set; }
 
-        private igdbEntity connection = new igdbEntity();
+        private igdbDB connection = new igdbDB();
 
         public bool AddNewGame(string UserEmail)
         {
